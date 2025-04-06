@@ -26,8 +26,10 @@ export class AnthropicController {
         Connection: 'keep-alive',
       });
 
-      const stream =
-        await this.anthropicService.getStreamingResponse(userMessage);
+      const stream = await this.anthropicService.getStreamingResponse(
+        'placeholder_user_id',
+        userMessage,
+      );
 
       for await (const chunk of stream) {
         if (
@@ -43,7 +45,6 @@ export class AnthropicController {
         }
       }
 
-      // Signal end of stream for client
       res.write(`data: [DONE]\n\n`);
       res.end();
     } catch (e) {
