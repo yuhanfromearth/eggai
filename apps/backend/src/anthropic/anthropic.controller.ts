@@ -1,7 +1,9 @@
-import { Controller, Body, Res, Post } from '@nestjs/common';
+import { Controller, Body, Res, Post, UseGuards } from '@nestjs/common';
 import { AnthropicService } from './anthropic.service';
 import { Response } from 'express';
+import { SupabaseAuthGuard } from 'src/auth/supabaseauth.guard';
 
+@UseGuards(SupabaseAuthGuard)
 @Controller('anthropic')
 export class AnthropicController {
   constructor(private anthropicService: AnthropicService) {}

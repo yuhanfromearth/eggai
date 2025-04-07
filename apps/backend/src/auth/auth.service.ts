@@ -3,7 +3,7 @@ import { SupabaseClient, createClient } from '@supabase/supabase-js';
 
 @Injectable()
 export class AuthService {
-  private supabase: SupabaseClient = createClient(
+  supabase: SupabaseClient = createClient(
     process.env.DATABASE_URL!,
     process.env.SUPABASE_KEY!,
   );
@@ -20,7 +20,6 @@ export class AuthService {
     });
 
     if (error) {
-      console.error(error.message);
       throw new Error(error.message);
     }
 
@@ -36,10 +35,11 @@ export class AuthService {
     });
 
     if (error) {
-      console.error(error.message);
       throw new Error(error.message);
     }
 
     console.log('User successfully logged in.');
+
+    return data.session.access_token;
   }
 }
