@@ -56,7 +56,6 @@ export const fetchStreamResponse = async ({
               resText += parsedData.text;
             }
           } catch (e) {
-            console.log(e);
             console.error("Error parsing SSE data:", e);
           }
         }
@@ -66,7 +65,6 @@ export const fetchStreamResponse = async ({
     return resText;
   } catch (error: unknown) {
     const errorMessage = error instanceof Error ? error.message : String(error);
-    console.log(error);
     setResponseText(errorMessage);
   } finally {
     setIsStreaming(false);

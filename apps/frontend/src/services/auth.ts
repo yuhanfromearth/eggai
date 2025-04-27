@@ -44,6 +44,14 @@ export const authService = {
     return data.session;
   },
 
+  async logout() {
+    const { error } = await supabase.auth.signOut();
+
+    if (error) {
+      throw Error("Logout unseccessful: " + error.message);
+    }
+  },
+
   async getAuthStatus(): Promise<boolean> {
     const { data, error } = await supabase.auth.getSession();
 
