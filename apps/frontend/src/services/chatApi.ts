@@ -1,4 +1,15 @@
 import { Dispatch, SetStateAction } from "react";
+import { authService } from "./auth";
+
+let cachedAccessToken: string | undefined = undefined;
+
+async function getAccessToken() {
+  if (!cachedAccessToken) {
+    const session = await authService.getSession();
+    cachedAccessToken = session.access_token;
+  }
+  return cachedAccessToken;
+}
 
 interface IfetchStreamResponse {
   setResponseText: Dispatch<SetStateAction<string>>;
@@ -20,9 +31,10 @@ export const fetchStreamResponse = async ({
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        Authorization: `Bearer ${await getAccessToken()}`,
       },
       body: JSON.stringify({
-        message: userInput,
+        userMessage: userInput,
       }),
     });
 

@@ -13,6 +13,7 @@ export class AnthropicController {
     @Body() body: { userMessage: string },
     @Res() res: Response,
   ) {
+    console.log('hit');
     const userMessage = body.userMessage;
 
     if (!userMessage) {
